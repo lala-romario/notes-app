@@ -9,7 +9,7 @@
     @csrf
 
     <div class="flex flex-col">
-        <input type="text" name="title" id="" placeholder="Title" class="h-10 w-100 font-bold text-xl border rounded @error('title') border-red-500 text-red-500 @else border-gray-500 @enderror pl-4 ">
+        <input type="text" name="title" placeholder="Title" class="h-10 w-100 font-bold text-xl border rounded @error('title') border-red-500 text-red-500 @else border-gray-500 @enderror pl-4 ">
     </div>
 
     @error('title')
@@ -17,7 +17,7 @@
     @enderror
 
     <div>
-        <textarea name="content" id="" placeholder="TEXT HERE ..." class="h-80 w-100 border @error('content') border border-red-500 text-red-500 @else border-gray-500 @enderror rounded-lg pl-4 pt-4 mt-5"></textarea>
+        <textarea name="content" placeholder="TEXT HERE ..." class="h-80 w-100 border @error('content') border border-red-500 text-red-500 @else border-gray-500 @enderror rounded-lg pl-4 pt-4 mt-5"></textarea>
     </div>
 
     @error('content')

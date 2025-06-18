@@ -11,7 +11,7 @@ class UsersController extends Controller
 {
     public function index(Request $request)
     {
-        
+
         $users = User::all();
 
         return view('users.users', ['users' => $users]);
@@ -44,19 +44,22 @@ class UsersController extends Controller
             'password' => 'required|min:12'
         ]);
 
-        if(Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            
+
             return redirect()->intended('dashboard');
         }
+
+        return redirect('login');
     }
 
     public function logout(Request $request)
     {
-        if(Auth::check()) {
+        if (Auth::check()) {
             $request->session()->invalidate();
 
             Auth::logout();
+
             return redirect('/');
         }
     }

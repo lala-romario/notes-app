@@ -23,21 +23,21 @@ Route::group(['middleware' => 'guest'], function () {
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', function() {
-        return view('notes.home');
+        return view('notes.dashboard');
     });
 
     Route::get('notes/{note}', [NotesController::class, 'show'])->name('notes.show');
 
     Route::get('/notes', [NotesController::class, 'index']);
 
-    Route::get('/notes/create', function () {
+    Route::get('/notes.create', function () {
         return view('notes.create');
-    })->name('notes.index');
+    })->name('notes.create');
 
 
     Route::post('/notes/store', [NotesController::class, 'store']);
 
-    Route::post('/delete', [NotesController::class, 'destroy']);
+    Route::get('/delete/{note}', [NotesController::class, 'destroy'])->name('notes.delete');
 
     Route::get('/logout', [UsersController::class, 'logout']);
 

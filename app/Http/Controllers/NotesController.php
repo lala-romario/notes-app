@@ -11,7 +11,7 @@ class NotesController extends Controller
 {
     public function index()
     {
-        $notes = Note::all()->where('user_id', Auth::id());
+        $notes = Note::where('user_id', Auth::id())->get();
 
         return view('notes.index', ['notes' => $notes]);
     }
@@ -25,30 +25,30 @@ class NotesController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|min:5|max:50',
-            'content' => 'required|min:10'
+            'content' => 'required'
         ]);
 
-        Note::create([
+       $note = Note::create([
             ...$validated,
             'user_id' => Auth::id()
         ]);
 
-        return redirect('notes')->with('success', 'Note save with success');
+        $notes = Note::where('user_id', Auth::id())->get();
+
+        return view('notes.index', ['notes' => $notes]);
     }
 
     public function show(Note $note)
     {
-        return view('/notes.note', ['note' => $note]);
+        return view('/notes.show', ['note' => $note]);
     }
 
-    public function destroy(Request $request)
-    {
-        $note_id = $request->note_id;
+        public function destroy(Note $note)
+        {
+            if($note->user_id === Auth::id()) {
+                $note->delete();
+            }
 
-        Note::destroy($note_id);
-
-        $notes = Note::all();
-
-        return view('/notes/show', ['notes' => $notes]);
-    }
+            return redirect('/notes');
+        }
 }
