@@ -56,7 +56,7 @@ class NotesController extends Controller
     public function update(Request $request, Note $note): RedirectResponse
     {
         if (! Gate::allows('update-note', $note)) {
-            return abort(403);
+            return abort(401);
         }
         return redirect('notes');
     }
