@@ -77,7 +77,11 @@
     <header class="bg-white shadow-sm">
       <div class="mx-auto ml-5  px-4 py-6 sm:px-6 ">
         <h1 class="text-3xl font-bold tracking-tight text-gray-900">@yield('header', $header ?? 'Dashboard')</h1>
-        <p>@yield('name', $name ?? 'This is name')</p>
+        <div>
+          @auth
+          <p>{{ Auth::user()->name }}</p>
+          @endauth
+        </div>
       </div>
     </header>
     <main>

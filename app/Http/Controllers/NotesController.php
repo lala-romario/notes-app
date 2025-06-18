@@ -28,7 +28,7 @@ class NotesController extends Controller
             'content' => 'required'
         ]);
 
-       $note = Note::create([
+        Note::create([
             ...$validated,
             'user_id' => Auth::id()
         ]);
@@ -43,12 +43,12 @@ class NotesController extends Controller
         return view('/notes.show', ['note' => $note]);
     }
 
-        public function destroy(Note $note)
-        {
-            if($note->user_id === Auth::id()) {
-                $note->delete();
-            }
-
-            return redirect('/notes');
+    public function destroy(Note $note)
+    {
+        if ($note->user_id === Auth::id()) {
+            $note->delete();
         }
+
+        return redirect('/notes');
+    }
 }

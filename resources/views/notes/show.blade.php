@@ -15,8 +15,11 @@
 
     <div class="mt-5">
         <a href="/notes" class="ml-5 text-3xl hover:text-blue-500 duration-500">go back...</a>
-
-        <a href="{{ route('notes.delete', $note) }}" class="ml-5 text-3xl hover:text-blue-500 duration-500">Delete</a>
+        <form action="{{ route('notes.delete', $note) }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="pointer-cursor ml-5 text-3xl hover:text-blue-500 duration-500">Delete</button>
+        </form>
     </div>
 
 @endsection

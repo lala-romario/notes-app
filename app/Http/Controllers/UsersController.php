@@ -46,8 +46,13 @@ class UsersController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+            
+            $user = Auth::user();
 
-            return redirect()->intended('dashboard');
+            return view('components.dashboard', ['username' => $user->name]);
+
+
+            
         }
 
         return redirect('login');

@@ -3,6 +3,7 @@
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\NotesController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 Route::post('/create/user', [UsersController::class, 'store']);
 
@@ -24,7 +25,8 @@ Route::group(['middleware' => 'guest'], function () {
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', function() {
         return view('notes.dashboard');
-    });
+        
+    })->name('dashboard');
 
     Route::get('notes/{note}', [NotesController::class, 'show'])->name('notes.show');
 
@@ -37,7 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('/notes/store', [NotesController::class, 'store']);
 
-    Route::get('/delete/{note}', [NotesController::class, 'destroy'])->name('notes.delete');
+    Route::delete('/notes/{note}', [NotesController::class, 'destroy'])->name('notes.delete');
 
     Route::get('/logout', [UsersController::class, 'logout']);
 
