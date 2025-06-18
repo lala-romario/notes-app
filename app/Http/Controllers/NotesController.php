@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Note;
-
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class NotesController extends Controller
 {
@@ -50,5 +51,13 @@ class NotesController extends Controller
         }
 
         return redirect('/notes');
+    }
+
+    public function update(Request $request, Note $note): RedirectResponse
+    {
+        if (! Gate::allows('update-note', $note)) {
+            return abort(403);
+        }
+        return redirect('notes');
     }
 }

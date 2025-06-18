@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
         return view('notes.create');
     })->name('notes.create');
 
+    Route::get('update', [NotesController::class, 'update']);
 
     Route::post('/notes/store', [NotesController::class, 'store']);
 
