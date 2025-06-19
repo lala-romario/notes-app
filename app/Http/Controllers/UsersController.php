@@ -37,35 +37,4 @@ class UsersController extends Controller
         return redirect('dashboard');
     }
 
-    public function authenticate(Request $request)
-    {
-        $credentials = $request->validate([
-            'email' => 'required|min:10',
-            'password' => 'required|min:12'
-        ]);
-
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            
-            $user = Auth::user();
-
-            return view('components.dashboard', ['username' => $user->name]);
-
-
-            
-        }
-
-        return redirect('login');
-    }
-
-    public function logout(Request $request)
-    {
-        if (Auth::check()) {
-            $request->session()->invalidate();
-
-            Auth::logout();
-
-            return redirect('/');
-        }
-    }
 }

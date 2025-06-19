@@ -6,7 +6,7 @@
 
 @section('content')
 
-<form action="/authenticate" method="post" class="">
+<form action="{{ route('loggedin') }}" method="post" class="">
     @csrf
     <div class="flex min-h-full flex-col justify-center p-30">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Note;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -53,11 +54,24 @@ class NotesController extends Controller
         return redirect('/notes');
     }
 
-    public function update(Request $request, Note $note): RedirectResponse
+    public function CheckAuthorizationUpdate(User $user,Note $note)
     {
-        if (! Gate::allows('update-note', $note)) {
-            return abort(401);
+        if(! Gate::allows('update-note', $note)) {
+            abort(403);
         }
+
+        return view('update', ['note' => $note]);
+    }
+
+    public function saveUpdate(Request $request, Note $note)
+    {
+       $validated = $request->validate([
+            'title' => 'required',
+            'content' => 'required'
+        ]);
+        $note->update($validated);
+
         return redirect('notes');
+        
     }
 }
