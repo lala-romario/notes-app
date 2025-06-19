@@ -19,12 +19,12 @@
             <form action="{{ route('notes.delete', $note) }}" method="POST">
             @csrf
             @method('DELETE')
-            <button type="submit" class="pointer-cursor text-3xl hover:text-blue-500 duration-500">Delete</button>
+            <button type="submit" class="pointer-cursor text-3xl hover:text-blue-500 duration-500 cursor-pointer">Delete</button>
         </form>
         </div>
 
         <div>
-            <a href="{{ route('notes.update', ['note' => $note]) }}" class="text-3xl hover:text-blue-500 duration-500">update</a>
+            <a href="{{ route('notes.update', ['note' => $note]) }}" class="text-3xl hover:text-blue-500 duration-500">Edit note</a>
         </div>
     </div>
 

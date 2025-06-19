@@ -23,6 +23,6 @@
     @error('content')
     <p class="text-red-500 mt-2">{{ $message }}</p>
     @enderror
-    <button type="submit" class="mt-10 w-25 h-12 bg-gray-500 text-white text-2xl rounded-sm hover:bg-gray-700 cursor-pointer">Save</button>
+    <button type="submit" class="mt-10 p-3 bg-gray-500 text-white text-2xl rounded-sm hover:bg-gray-700 duration-500 cursor-pointer">Save edit</button>
 </form>
 @endsection

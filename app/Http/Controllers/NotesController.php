@@ -47,11 +47,11 @@ class NotesController extends Controller
 
     public function destroy(Note $note)
     {
-        if(! Gate::allows('delete-note', $note)) {
-            abort(403);
+        if (Gate::authorize('delete', $note)) {
+            $response = Gate::inspect('delete-note');
+            $note->delete();
+            return redirect('/notes');
         }
-        $note->delete();
-        return redirect('/notes');
     }
 
     public function redirectToFormToUpdate(Note $note)
@@ -61,17 +61,15 @@ class NotesController extends Controller
 
     public function update(Request $request, Note $note)
     {
-        if(! Gate::allows('update-note', $note)) {
-            abort(403);
-        }
-        
-       $validated = $request->validate([
-            'title' => 'required',
-            'content' => 'required'
-        ]);
-        $note->update($validated);
+        if (Gate::authorize('update', $note)) {
+            $response = Gate::inspect('update', $note);
+            $validated = $request->validate([
+                'title' => 'required',
+                'content' => 'required'
+            ]);
+            $note->update($validated);
 
-        return redirect('notes');
-        
+            return redirect('notes');
+        }
     }
 }
