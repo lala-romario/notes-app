@@ -35,7 +35,7 @@ Route::group(['middleware' => 'auth'], function () {
         return view('notes.create');
     })->name('notes.create');
 
-    Route::post('/notes/store', [NotesController::class, 'store']);
+    Route::post('/notes/store', [NotesController::class, 'store'])->name('notes.store');
 
     Route::delete('/notes/{note}', [NotesController::class, 'destroy'])->name('notes.delete');
 

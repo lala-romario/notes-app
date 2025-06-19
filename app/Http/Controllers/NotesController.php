@@ -37,7 +37,7 @@ class NotesController extends Controller
 
         $notes = Note::where('user_id', Auth::id())->get();
 
-        return view('notes.index', ['notes' => $notes]);
+        return redirect('notes');
     }
 
     public function show(Note $note)
