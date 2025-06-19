@@ -26,5 +26,9 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('update-note', function (User $user, Note $note) {
             return $user->id === $note->user_id;
         });
+
+        Gate::define('delete-note', function (User $user, Note $note) {
+            return $user->id === $note->user_id;
+        });
     }
 }

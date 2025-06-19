@@ -47,10 +47,10 @@ class NotesController extends Controller
 
     public function destroy(Note $note)
     {
-        if ($note->user_id === Auth::id()) {
-            $note->delete();
+        if(! Gate::allows('delete-note', $note)) {
+            abort(403);
         }
-
+        $note->delete();
         return redirect('/notes');
     }
 
