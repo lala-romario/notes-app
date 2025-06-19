@@ -54,17 +54,17 @@ class NotesController extends Controller
         return redirect('/notes');
     }
 
-    public function CheckAuthorizationUpdate(User $user,Note $note)
+    public function redirectToFormToUpdate(Note $note)
+    {
+        return view('update', ['note' => $note]);
+    }
+
+    public function update(Request $request, Note $note)
     {
         if(! Gate::allows('update-note', $note)) {
             abort(403);
         }
-
-        return view('update', ['note' => $note]);
-    }
-
-    public function saveUpdate(Request $request, Note $note)
-    {
+        
        $validated = $request->validate([
             'title' => 'required',
             'content' => 'required'

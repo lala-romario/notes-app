@@ -39,9 +39,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::delete('/notes/{note}', [NotesController::class, 'destroy'])->name('notes.delete');
 
-    Route::get('/update/{note}', [NotesController::class, 'CheckAuthorizationUpdate'])->name('notes.update');
+    Route::get('/update/{note}', [NotesController::class, 'redirectToFormToUpdate'])->name('notes.update');
 
-    Route::post('/save/update/{note}', [NotesController::class, 'saveUpdate'])->name('save.update');
+    Route::post('/save/update/{note}', [NotesController::class, 'update'])->name('save.update');
 
     Route::get('/logout', [LoginController::class, 'logout']);
 });
