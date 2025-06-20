@@ -5,7 +5,7 @@
 @section('header', $header = 'Create new note')
 
 @section('content')
-<form action="/notes/store" method="post" class="ml-10">
+<form action="{{ route('notes.store') }}" method="post" class="ml-10">
     @csrf
 
     <div class="flex flex-col">

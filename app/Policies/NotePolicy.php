@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\Note;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class NotePolicy
 {
@@ -13,7 +12,7 @@ class NotePolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,7 +20,7 @@ class NotePolicy
      */
     public function view(User $user, Note $note): bool
     {
-        return false;
+        return $user->id === $note->user_id;
     }
 
     /**
@@ -29,17 +28,15 @@ class NotePolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Note $note): Response
+    public function update(User $user, Note $note): bool
     {
-        return $user->id === $note->user_id
-        ? Response::allow('Done successfully')
-        : Response::deny('You not authorized');
+        return $user->id === $note->user_id;
     }
 
     /**

@@ -8,14 +8,18 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class NotesController extends Controller
 {
-    public function index()
+    public function __construct()
     {
-        $notes = Note::where('user_id', Auth::id())->get();
+        $this->authorizeResource(Note::class, 'note');
+    }
 
-        return view('notes.index', ['notes' => $notes]);
+    public function index(Request $request)
+    {
+        return view('notes.index', ['notes' => $request->user()->notes]);
     }
 
     public function create()
@@ -47,29 +51,24 @@ class NotesController extends Controller
 
     public function destroy(Note $note)
     {
-        if (Gate::authorize('delete', $note)) {
-            $response = Gate::inspect('delete-note');
-            $note->delete();
-            return redirect('/notes');
-        }
+        $note->delete();
+
+        return redirect(route('notes.index'));
     }
 
-    public function redirectToFormToUpdate(Note $note)
+    public function edit(Note $note)
     {
-        return view('update', ['note' => $note]);
+        return view('notes.update', ['note' => $note]);
     }
 
     public function update(Request $request, Note $note)
     {
-        if (Gate::authorize('update', $note)) {
-            $response = Gate::inspect('update', $note);
-            $validated = $request->validate([
-                'title' => 'required',
-                'content' => 'required'
-            ]);
-            $note->update($validated);
+        $validated = $request->validate([
+            'title' => 'required',
+            'content' => 'required'
+        ]);
+        $note->update($validated);
 
-            return redirect('notes');
-        }
+        return redirect('notes');
     }
 }

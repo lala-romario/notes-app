@@ -16,7 +16,7 @@
     <div class="flex space-x-4 mt-5">
         <a href="/notes" class="ml-5 text-3xl hover:text-blue-500 duration-500">go back...</a>
         <div>
-            <form action="{{ route('notes.delete', $note) }}" method="POST">
+            <form action="{{ route('notes.destroy', $note) }}" method="POST">
             @csrf
             @method('DELETE')
             <button type="submit" class="pointer-cursor text-3xl hover:text-blue-500 duration-500 cursor-pointer">Delete</button>
@@ -24,7 +24,7 @@
         </div>
 
         <div>
-            <a href="{{ route('notes.update', ['note' => $note]) }}" class="text-3xl hover:text-blue-500 duration-500">Edit note</a>
+            <a href="{{ route('notes.edit', ['note' => $note]) }}" class="text-3xl hover:text-blue-500 duration-500">Edit note</a>
         </div>
     </div>
 

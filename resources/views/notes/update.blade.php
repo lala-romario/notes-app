@@ -5,9 +5,9 @@
 @section('header', $header = 'Dashboard')
 
 @section('content')
-    <form action="{{ route('save.update', ['note' => $note]) }}" method="post" class="ml-10">
+    <form action="{{ route('notes.update', ['note' => $note]) }}" method="post" class="ml-10">
     @csrf
-
+    @method('PATCH')
     <div class="flex flex-col">
         <input type="text" name="title" placeholder="Title" value="{{ $note->title }}" class="h-10 w-100 font-bold text-xl border rounded @error('title') border-red-500 text-red-500 @else border-gray-500 @enderror pl-4 ">
     </div>
