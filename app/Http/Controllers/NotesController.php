@@ -19,6 +19,7 @@ class NotesController extends Controller
 
     public function index(Request $request)
     {
+
         return view('notes.index', ['notes' => $request->user()->notes]);
     }
 
@@ -39,7 +40,7 @@ class NotesController extends Controller
             'user_id' => Auth::id()
         ]);
 
-        $notes = Note::where('user_id', Auth::id())->get();
+        //$notes = Note::where('user_id', Auth::id())->get();
 
         return redirect('notes');
     }
